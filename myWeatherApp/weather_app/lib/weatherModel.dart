@@ -9,6 +9,18 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 
+String getTimeFromTimestamp(int timestamp) {
+  var date = new DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+  var formatter = new DateFormat('h:mm a');
+  return formatter.format(date);
+}
+
+String getDateFromTimestamp(int timestamp) {
+  var date = new DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+  var formatter = new DateFormat('EEEE');
+  return formatter.format(date);
+}
+
 Widget weatherBox(weatherModel _weather) {
   final DateTime now = DateTime.now();
   final DateFormat formatter = DateFormat('dd-MM-yyyy');
@@ -129,7 +141,7 @@ Widget weatherBox(weatherModel _weather) {
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        Text(formatted),
+        Text(getDateFromTimestamp(_weather.list[0].dt)),
         Text("${_weather.city.name}"),
         getWeatherIcon(
             weatherDesc: _weather.list[0].weather[0].description,
@@ -148,7 +160,7 @@ Widget weatherBox(weatherModel _weather) {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Text(formatted),
+                    Text(getDateFromTimestamp(_weather.list[3].dt)),
                     Text("${_weather.city.name}"),
                     getWeatherIcon(
                         weatherDesc: _weather.list[1].weather[0].main,
@@ -167,7 +179,7 @@ Widget weatherBox(weatherModel _weather) {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Text(formatted),
+                    Text(getDateFromTimestamp(_weather.list[11].dt)),
                     Text("${_weather.city.name}"),
                     getWeatherIcon(
                         weatherDesc: _weather.list[2].weather[0].main,
@@ -186,7 +198,7 @@ Widget weatherBox(weatherModel _weather) {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Text(formatted),
+                    Text(getDateFromTimestamp(_weather.list[17].dt)),
                     Text("${_weather.city.name}"),
                     getWeatherIcon(
                         weatherDesc: _weather.list[3].weather[0].main,
@@ -205,7 +217,7 @@ Widget weatherBox(weatherModel _weather) {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Text(formatted),
+                    Text(getDateFromTimestamp(_weather.list[24].dt)),
                     Text("${_weather.city.name}"),
                     getWeatherIcon(
                         weatherDesc: _weather.list[4].weather[0].main,
@@ -224,7 +236,7 @@ Widget weatherBox(weatherModel _weather) {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Text(formatted),
+                    Text(getDateFromTimestamp(_weather.list[32].dt)),
                     Text("${_weather.city.name}"),
                     getWeatherIcon(
                         weatherDesc: _weather.list[5].weather[0].main,
