@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
+import 'main.dart';
 
 String getTimeFromTimestamp(int timestamp) {
   var date = new DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
@@ -138,8 +139,9 @@ Widget weatherBox(weatherModel _weather) {
 
   return Center(
     child: Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Text(getDateFromTimestamp(_weather.list[0].dt)),
         Text("${_weather.city.name}"),
@@ -150,15 +152,17 @@ Widget weatherBox(weatherModel _weather) {
         Text("Min : ${(_weather.list[0].main.tempMin - 272.5).round()}°C"),
         Text("Max : ${(_weather.list[0].main.tempMax - 272.5).round()}°C"),
         Text("Hum : ${_weather.list[0].main.humidity}%"),
-        Expanded(
-          //   height: 150,
+          Container(
+             height: 250,
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: <Widget>[
               Card(
-                color: Color.fromRGBO(140, 92, 121, 1),
+                color: Color.fromRGBO(140, 92, 121, 1.0),
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
                     Text(getDateFromTimestamp(_weather.list[3].dt)),
                     Text("${_weather.city.name}"),
@@ -177,6 +181,8 @@ Widget weatherBox(weatherModel _weather) {
               Card(
                 color: Color.fromRGBO(140, 92, 121, 1),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Text(getDateFromTimestamp(_weather.list[11].dt)),
@@ -196,9 +202,11 @@ Widget weatherBox(weatherModel _weather) {
               Card(
                 color: Color.fromRGBO(140, 92, 121, 1),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Text(getDateFromTimestamp(_weather.list[17].dt)),
+                    Text(getDateFromTimestamp(_weather.list[24].dt)),
                     Text("${_weather.city.name}"),
                     getWeatherIcon(
                         weatherDesc: _weather.list[3].weather[0].main,
@@ -215,9 +223,11 @@ Widget weatherBox(weatherModel _weather) {
               Card(
                 color: Color.fromRGBO(140, 92, 121, 1),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Text(getDateFromTimestamp(_weather.list[24].dt)),
+                    Text(getDateFromTimestamp(_weather.list[32].dt)),
                     Text("${_weather.city.name}"),
                     getWeatherIcon(
                         weatherDesc: _weather.list[4].weather[0].main,
@@ -234,9 +244,11 @@ Widget weatherBox(weatherModel _weather) {
               Card(
                 color: Color.fromRGBO(140, 92, 121, 1),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Text(getDateFromTimestamp(_weather.list[32].dt)),
+                    Text(getDateFromTimestamp(_weather.list[38].dt)),
                     Text("${_weather.city.name}"),
                     getWeatherIcon(
                         weatherDesc: _weather.list[5].weather[0].main,
@@ -251,8 +263,8 @@ Widget weatherBox(weatherModel _weather) {
                 ),
               ),
             ],
-          ),
         ),
+          ),
       ],
     ),
   );
@@ -311,8 +323,8 @@ Widget getWeatherIcon(
 
 class weatherModel {
   String cod = "";
-  int message = 0;
-  int cnt = 0;
+  num message = 0;
+  num cnt = 0;
   List<ListM> list = <ListM>[];
   City city = new City(
       id: 0,
@@ -374,8 +386,8 @@ class ListM {
   List<Weather> weather = <Weather>[];
   Clouds clouds = new Clouds(all: 0);
   Wind wind = new Wind(speed: 0, deg: 0, gust: 0);
-  int visibility = 0;
-  int pop = 0;
+  num visibility = 0;
+  num pop = 0;
   Sys sys = new Sys(pod: "pod");
   String dtTxt = "";
 
@@ -438,10 +450,10 @@ class Main {
   double feelsLike = 0;
   double tempMin = 0;
   double tempMax = 0;
-  int pressure = 0;
-  int seaLevel = 0;
-  int grndLevel = 0;
-  int humidity = 0;
+  num pressure = 0;
+  num seaLevel = 0;
+  num grndLevel = 0;
+  num humidity = 0;
   double tempKf = 0;
 
   Main(
@@ -456,15 +468,15 @@ class Main {
       required this.tempKf});
 
   Main.fromJson(Map<String, dynamic> json) {
-    temp = json['temp'];
-    feelsLike = json['feels_like'];
-    tempMin = json['temp_min'];
-    tempMax = json['temp_max'];
+    temp = json['temp'].toDouble();
+    feelsLike = json['feels_like'].toDouble();
+    tempMin = json['temp_min'].toDouble();
+    tempMax = json['temp_max'].toDouble();
     pressure = json['pressure'];
     seaLevel = json['sea_level'];
     grndLevel = json['grnd_level'];
     humidity = json['humidity'];
-    tempKf = json['temp_kf'];
+    tempKf = json['temp_kf'].toDouble();
   }
 
   Map<String, dynamic> toJson() {
@@ -483,7 +495,7 @@ class Main {
 }
 
 class Weather {
-  int id = 0;
+  num id = 0;
   String main = "";
   String description = "";
   String icon = "";
@@ -512,7 +524,7 @@ class Weather {
 }
 
 class Clouds {
-  int all = 0;
+  num all = 0;
 
   Clouds({required this.all});
 
@@ -529,15 +541,15 @@ class Clouds {
 
 class Wind {
   double speed = 0;
-  int deg = 0;
+  num deg = 0;
   double gust = 0;
 
   Wind({required this.speed, required this.deg, required this.gust});
 
   Wind.fromJson(Map<String, dynamic> json) {
-    speed = json['speed'];
+    speed = json['speed'].toDouble();
     deg = json['deg'];
-    gust = json['gust'];
+    gust = json['gust'].toDouble();
   }
 
   Map<String, dynamic> toJson() {
@@ -566,14 +578,14 @@ class Sys {
 }
 
 class City {
-  int id = 0;
+  num id = 0;
   String name = "";
   Coord coord = new Coord(lat: 0, lon: 0);
   String country = "";
-  int population = 0;
-  int timezone = 0;
-  int sunrise = 0;
-  int sunset = 0;
+  num population = 0;
+  num timezone = 0;
+  num sunrise = 0;
+  num sunset = 0;
 
   City(
       {required this.id,
@@ -619,8 +631,8 @@ class Coord {
   Coord({required this.lat, required this.lon});
 
   Coord.fromJson(Map<String, dynamic> json) {
-    lat = json['lat'];
-    lon = json['lon'];
+    lat = json['lat'].toDouble();
+    lon = json['lon'].toDouble();
   }
 
   Map<String, dynamic> toJson() {

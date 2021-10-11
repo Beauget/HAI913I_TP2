@@ -13,7 +13,7 @@ class Network {
         "&appid=547502b05916878a5d0c514b504fb68c";
 
     final response = await get(Uri.parse(finalUrl));
-    print("URL :  ${Uri.encodeFull(finalUrl)}");
+      print("URL :  ${Uri.encodeFull(finalUrl)}");
 
     if (response.statusCode == 200) {
       return weatherModel.fromJson(json.decode(response.body));

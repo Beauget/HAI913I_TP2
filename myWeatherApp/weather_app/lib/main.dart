@@ -55,6 +55,7 @@ class SearchPage extends StatelessWidget {
               right: 32,
             ),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
                   "Votre météo",
